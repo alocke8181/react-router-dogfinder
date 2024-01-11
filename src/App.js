@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import defaultDogs from './defaultDogs';
+import DogList from './DogList';
+import DogFilter from './DogFilter';
 import './App.css';
 
-function App() {
+const App = ({dogs = defaultDogs}) =>{
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route exact path='/dogs' element= {<DogList dogNames={dogs.map((dog) => dog.name)} />} />
+        <Route path='/dogs/:name' element={<DogFilter dogs={dogs}/>} />
+        <Route path='*' element={<Navigate to={'/dogs'} />} />
+      </Routes>
     </div>
   );
 }
